@@ -7,11 +7,7 @@ const NewMeetup = () => {
     console.log(meetupData);
   };
 
-  return (
-    <Layout>
-      <NewMeetupForm onAddMeetup={addMeetupHandler} />
-    </Layout>
-  );
+  return <NewMeetupForm onAddMeetup={addMeetupHandler} />;
 };
 
 export default NewMeetup;
