@@ -1,0 +1,10 @@
+.detail__container {
+  text-align: center;
+}
+
+.image__container {
+}
+
+.image__container img {
+  max-width: 100%;
+}
