@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
 import MeetupList from "../components/meetups/MeetupList";
 
@@ -22,7 +23,27 @@ const DUMMY_MEETUPS = [
 ];
 
 const HomePage = () => {
-  return <MeetupList meetups={DUMMY_MEETUPS} />;
+  const [loadedMeetups, setLoadedMeetups] = useState([]);
+
+  useEffect(async () => {
+    try {
+      const response = await fetch("enter database url here");
+
+      if (!response.ok) throw new Error("Something went wrong!!");
+
+      const data = await response.json();
+
+      // transform fetched data and store it in a variable/state
+
+      const transformedMeetups = data.map((meetup) => {});
+
+      setLoadedMeetups(transformedMeetups);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  return <MeetupList meetups={loadedMeetups} />;
 };
 
 export default HomePage;

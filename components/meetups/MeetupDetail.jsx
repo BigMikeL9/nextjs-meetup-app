@@ -14,6 +14,7 @@ const MeetupDetail = (props) => {
       <div className={classes["content__container"]}>
         <h3>{props.title}</h3>
         <address>{props.address}</address>
+        <p>{props.description}</p>
       </div>
     </Card>
   );
