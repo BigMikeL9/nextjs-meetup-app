@@ -22,28 +22,20 @@ const DUMMY_MEETUPS = [
   },
 ];
 
-const HomePage = () => {
-  const [loadedMeetups, setLoadedMeetups] = useState([]);
+const HomePage = (props) => {
+  // console.log(props);
 
-  useEffect(async () => {
-    try {
-      const response = await fetch("enter database url here");
+  const { meetups } = props;
 
-      if (!response.ok) throw new Error("Something went wrong!!");
+  return <MeetupList meetups={meetups} />;
+};
 
-      const data = await response.json();
-
-      // transform fetched data and store it in a variable/state
-
-      const transformedMeetups = data.map((meetup) => {});
-
-      setLoadedMeetups(transformedMeetups);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
-  return <MeetupList meetups={loadedMeetups} />;
+// 'Static-site Generation' -- 'SSG'  -> through 'getStaticProps()' function
+// -- Remember --> can only be used in page components, ie: component files inside the 'pages' folder
+export const getStaticProps = async () => {
+  return {
+    props: { meetups: DUMMY_MEETUPS }, // will be passed to the page component as props
+  };
 };
 
 export default HomePage;
