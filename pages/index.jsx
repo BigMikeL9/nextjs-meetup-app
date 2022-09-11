@@ -23,19 +23,39 @@ const DUMMY_MEETUPS = [
 ];
 
 const HomePage = (props) => {
-  // console.log(props);
+  console.log(props);
 
   const { meetups } = props;
 
   return <MeetupList meetups={meetups} />;
 };
 
-// 'Static-site Generation' -- 'SSG'  -> through 'getStaticProps()' function
-// -- Remember --> can only be used in page components, ie: component files inside the 'pages' folder
-export const getStaticProps = async () => {
+export default HomePage;
+
+// -----------------------------------------------------
+// 'Server-Side Rendering'  -- 'SSR'  -> through 'getServerSideProps()' function
+export const getServerSideProps = async (context) => {
+  // const req = context.req;
+
+  // code in here ONLY gets executed on the server
+  // so we cant access it on the client
+  console.log(context.req);
+
   return {
-    props: { meetups: DUMMY_MEETUPS }, // will be passed to the page component as props
+    props: { meetups: DUMMY_MEETUPS },
   };
 };
 
-export default HomePage;
+// -----------------------------------------------------
+// 'Static-site Generation' -- 'SSG'  -> through 'getStaticProps()' function
+// -- Remember --> can only be used in page components, ie: component files inside the 'pages' folder
+// export const getStaticProps = async (context) => {
+//   console.log(context);
+
+//   return {
+//     props: { meetups: DUMMY_MEETUPS }, // will be passed to the page component as props
+//     revalidate: 10,
+//   };
+// };
+
+// export default HomePage;
