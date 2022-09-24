@@ -28,3 +28,25 @@ const MeetupDetailPage = () => {
 };
 
 export default MeetupDetailPage;
+
+export const getStaticProps = (context) => {
+  // fetch data from database using detailId
+
+  // getting access to the detailId parameter in the URL inorder to fetch and pass its data to '<MeetupDetail/>
+
+  console.log(context);
+
+  const meetupId = context.params.meetupid;
+
+  console.log(meetupId);
+
+  return {
+    props: {
+      imgSrc:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80",
+      title: "First Meetup",
+      address: "Paris",
+      description: "This is the description",
+    },
+  };
+};

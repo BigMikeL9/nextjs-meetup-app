@@ -34,28 +34,26 @@ export default HomePage;
 
 // -----------------------------------------------------
 // 'Server-Side Rendering'  -- 'SSR'  -> through 'getServerSideProps()' function
-export const getServerSideProps = async (context) => {
-  // const req = context.req;
+// export const getServerSideProps = async (context) => {
+//   // const req = context.req;
 
-  // code in here ONLY gets executed on the server
-  // so we cant access it on the client
-  console.log(context.req);
+//   // code in here ONLY gets executed on the server
+//   // so we cant access it on the client
+//   console.log(context.req);
 
-  return {
-    props: { meetups: DUMMY_MEETUPS },
-  };
-};
+//   return {
+//     props: { meetups: DUMMY_MEETUPS },
+//   };
+// };
 
 // -----------------------------------------------------
 // 'Static-site Generation' -- 'SSG'  -> through 'getStaticProps()' function
 // -- Remember --> can only be used in page components, ie: component files inside the 'pages' folder
-// export const getStaticProps = async (context) => {
-//   console.log(context);
+export const getStaticProps = async (context) => {
+  console.log(context);
 
-//   return {
-//     props: { meetups: DUMMY_MEETUPS }, // will be passed to the page component as props
-//     revalidate: 10,
-//   };
-// };
-
-// export default HomePage;
+  return {
+    props: { meetups: DUMMY_MEETUPS }, // will be passed to the page component as props
+    revalidate: 10, // 'Incremental Static Regeneration'
+  };
+};
