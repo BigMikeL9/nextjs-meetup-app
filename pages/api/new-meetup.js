@@ -1,3 +1,5 @@
+import { MongoClient } from "mongodb";
+
 // This is an 'API Route'
 // API Routes only run on the server and are not available on the client-side/browser
 // route for incoming requests  -->  /api/[API Route file name]  -->  /api/new-meetup
@@ -18,7 +20,7 @@ const handler = (req, res) => {
 
     const { title, image, address, description } = data;
 
-    // store data from http request to a Database
+    // store data from http request to a MongoDB Database
   }
 };
 
