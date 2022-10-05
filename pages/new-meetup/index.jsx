@@ -6,7 +6,7 @@ const NewMeetup = () => {
   const addMeetupHandler = async (meetupData) => {
     console.log(meetupData);
 
-    // send new meetup data as 'POST' request to 'API Routes' endpoint in 'pages/api/new-meetup.js' file  -->  /api/new-meetup
+    // send new meetup data as 'POST' request to 'API Route' endpoint in 'pages/api/new-meetup.js' file, inorder to trigger the backend code there and send the data to be stored in a MongoDB database  -->  /api/new-meetup
 
     try {
       const response = await fetch("/api/new-meetup", {
