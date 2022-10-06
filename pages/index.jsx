@@ -1,8 +1,12 @@
 import Layout from "../components/layout/Layout";
 import MeetupList from "../components/meetups/MeetupList";
 
+// Since 'MongoClient' package is only being used in 'getStaticProps()', the imported package will NOT be part of the client-side bundle. 'Nextjs' will detect that it is only being used on the server in 'getStaticProps()', same goes for 'gerServerSideProps()'
+import { MongoClient } from "mongodb";
+
 // www.our-domain.com
 
+/*
 const DUMMY_MEETUPS = [
   {
     id: "m1",
@@ -20,6 +24,7 @@ const DUMMY_MEETUPS = [
     address: "LuL",
   },
 ];
+*/
 
 const HomePage = (props) => {
   console.log(props);
@@ -49,10 +54,37 @@ export default HomePage;
 // 'Static-site Generation' -- 'SSG'  -> through 'getStaticProps()' function
 // -- Remember --> can only be used in page components, ie: component files inside the 'pages' folder
 export const getStaticProps = async (context) => {
-  console.log(context);
+  // console.log(context);
+
+  // connect to database (returns a promise)
+  const client = await MongoClient.connect(
+    "mongodb+srv://mikelkamel:BaUwmVa400zhRh9R@cluster0.qss2ixr.mongodb.net/?retryWrites=true&w=majority"
+  );
+
+  // Get hold of the database to which we are connecting to
+  const db = client.db();
+
+  // Get access to our meetups collection (can have any name as an argument)
+  const meetupsCollection = db.collection("meetupsDatabase");
+
+  const meetups = await meetupsCollection.find().toArray();
+
+  const transformedMeetups = meetups.map((meetup) => {
+    return {
+      id: meetup._id.toString(),
+      title: meetup.title,
+      image: meetup.image,
+      address: meetup.address,
+      description: meetup.description,
+    };
+  });
+
+  // console.log(transformedMeetups);
+
+  client.close();
 
   return {
-    props: { meetups: DUMMY_MEETUPS }, // will be passed to the page component as props
+    props: { meetups: transformedMeetups }, // will be passed to the page component as props
     revalidate: 10, // 'Incremental Static Regeneration'
   };
 };
