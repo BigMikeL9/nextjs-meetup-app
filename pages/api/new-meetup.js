@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-// This is an 'API Route'
+// ---------------- This is an 'API Route' ----------------
 // API Routes only run on the server and are not available on the client-side/browser
 // route for incoming requests  -->  /api/[API Route file name]  -->  /api/new-meetup
 // sending a request to this API Route will trigger the server-side function
@@ -8,15 +8,15 @@ import { MongoClient } from "mongodb";
 // This 'API Route' will be endpoint for creating a new meetup
 
 const handler = async (req, res) => {
-  console.log(req);
-  console.log(res);
+  // console.log(req);
+  // console.log(res);
 
   // checking the type of request sent to this 'API Route'
   if (req.method === "POST") {
     // getting the request data through 'body' property in 'req' object
     const data = req.body;
 
-    console.log(data);
+    // console.log(data);
 
     // store data from http request to a MongoDB Database
     // Sending queries to the MongoDB Cluster

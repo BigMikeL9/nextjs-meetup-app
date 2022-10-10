@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Layout from "../../components/layout/Layout";
 import NewMeetupForm from "../../components/meetups/NewMeetupForm";
 // www.our-domain.com/new-meetup
@@ -27,7 +28,18 @@ const NewMeetup = () => {
     }
   };
 
-  return <NewMeetupForm onAddMeetup={addMeetupHandler} />;
+  return (
+    <>
+      <Head>
+        <title>Add new Meetups</title>
+        <meta
+          name="description"
+          content="Add new reactive meetups and create new amazing opportunities"
+        />
+      </Head>
+      <NewMeetupForm onAddMeetup={addMeetupHandler} />
+    </>
+  );
 };
 
 export default NewMeetup;

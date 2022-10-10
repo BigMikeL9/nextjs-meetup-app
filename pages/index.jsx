@@ -3,6 +3,7 @@ import MeetupList from "../components/meetups/MeetupList";
 
 // Since 'MongoClient' package is only being used in 'getStaticProps()', the imported package will NOT be part of the client-side bundle. 'Nextjs' will detect that it is only being used on the server in 'getStaticProps()', same goes for 'gerServerSideProps()'
 import { MongoClient } from "mongodb";
+import Head from "next/head";
 
 // www.our-domain.com
 
@@ -31,7 +32,18 @@ const HomePage = (props) => {
 
   const { meetups } = props;
 
-  return <MeetupList meetups={meetups} />;
+  return (
+    <>
+      <Head>
+        <title>React Meetups</title>
+        <meta
+          name="description"
+          content="A list of meetups created using Nextjs"
+        />
+      </Head>
+      <MeetupList meetups={meetups} />
+    </>
+  );
 };
 
 export default HomePage;
@@ -56,6 +68,17 @@ export default HomePage;
 export const getStaticProps = async (context) => {
   // console.log(context);
 
+  // --------------------
+  // Remember --> Code inside 'getStaticProps', 'getServerSideProps' or an 'api-route' will NOT be available on the client-side/browser, so it is safe to add authentication or database access URL here.
+  // This is the standard way of doing it.
+  /* 
+    1. This code will NOT end up in the Client-side bundle.actions
+    2. Credentials will not be exposed
+    3. Our App bundle will not be bloated
+    4. This code will ONLY execute when this page is pre-generated ('getStaticProps()')
+  */
+  // --------------------
+
   // connect to database (returns a promise)
   const client = await MongoClient.connect(
     "mongodb+srv://mikelkamel:BaUwmVa400zhRh9R@cluster0.qss2ixr.mongodb.net/?retryWrites=true&w=majority"
@@ -67,6 +90,7 @@ export const getStaticProps = async (context) => {
   // Get access to our meetups collection (can have any name as an argument)
   const meetupsCollection = db.collection("meetupsDatabase");
 
+  // get and convert the 'collection' fetched from Mongodb
   const meetups = await meetupsCollection.find().toArray();
 
   const transformedMeetups = meetups.map((meetup) => {
